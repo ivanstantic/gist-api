@@ -8,11 +8,15 @@ const Search = ({updateGistList}) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const username = formData.get("username");
+    if (username === "") {
+      updateGistList(null);
+    }
+
     try {
       const { data: gistListForUser } = await getGistForUser(username);
       updateGistList(gistListForUser);
     } catch(error) {
-      updateGistList(null);
+      updateGistList([]);
     }
   };
 

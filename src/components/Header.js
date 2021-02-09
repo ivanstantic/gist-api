@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import Octicon from 'react-octicon';
 import Search from './Search';
 
-const Header = () => {
+const Header = ({updateGistList}) => {
   return (
     <Wrapper>
       <Octicon name="mark-github" mega/>
-      <Search />
+      <Search updateGistList={updateGistList} />
     </Wrapper>
   );
 }

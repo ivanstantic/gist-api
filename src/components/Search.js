@@ -1,16 +1,31 @@
-import React from 'react'
-import styled from 'styled-components'
-import Octicon from 'react-octicon'
+import React from 'react';
+import styled from 'styled-components';
+import Octicon from 'react-octicon';
+import { getGistForUser } from "../services/gistService";
 
-const Search = () => {
+const Search = ({updateGistList}) => {
+  const fetchGistListForUser = async event => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const username = formData.get("username");
+    try {
+      const { data: gistListForUser } = await getGistForUser(username);
+      updateGistList(gistListForUser);
+    } catch(error) {
+      updateGistList(null);
+    }
+  };
+
   return (
     <Wrapper>
       <InputBox>
       <Octicon name="search" />
-      <Input placeholder="Search Gists for the username"/>
+      <Form onSubmit={fetchGistListForUser}>
+        <Input name="username" placeholder="Search Gists for the username" />
+      </Form>
       </InputBox>
     </Wrapper>
-  )
+  );
 }
 
 const Wrapper = styled.div`
@@ -20,6 +35,11 @@ const Wrapper = styled.div`
   line-height: 1.5;
   border-radius: 6px;
   margin: 0 16px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  width: 100%;
 `;
 
 const InputBox = styled.div`
@@ -38,4 +58,4 @@ const Input = styled.input`
   }
 `;
 
-export default Search
+export default Search;

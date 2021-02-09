@@ -7,11 +7,17 @@ import GlobalStyles from "./GlobalStyle";
 import { getPublicGists } from "./services/gistService";
 
 const App = () => {
-  const [gistList, updateGistList] = useState([]);
+  const [gistList, updateGistList] = useState(null);
 
   useEffect(() => {
     fetchGistList();
   }, []);
+
+  useEffect(() => {
+    if (gistList === null) {
+      fetchGistList();
+    }
+  }, [gistList]);
 
   const fetchGistList = async () => {
     try {
@@ -24,7 +30,7 @@ const App = () => {
 
   return (
     <Wrapper className="App" data-testid="app">
-      <Header />
+      <Header updateGistList={updateGistList} />
       <GistList gistList={gistList} />
       <GlobalStyles />
     </Wrapper>

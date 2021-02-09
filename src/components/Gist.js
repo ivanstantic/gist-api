@@ -1,3 +1,7 @@
-const Gist = ({ gist }) => <>
+import React from 'react';
 
-export default Gist
+const Gist = ({ gist }) => {
+  return <div>{gist.id}</div>;
+}
+
+export default Gist;

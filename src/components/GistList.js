@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import Gist from "./Gist";
 import { getPublicGists } from "../services/gistService";
 
 const GistList = () => {
@@ -20,12 +21,12 @@ const GistList = () => {
   return (
     <>
       {gistList.length > 0 ?
-        <ul>
-          {gistList.map(gist => <li key={gist.id}>{gist.id}</li>)}
-        </ul>
+        <>
+          {gistList.map(gist => <Gist key={gist.id} gist={gist} />)}
+        </>
       : <h1>Loading</h1>}
     </>
   );
 }
 
-export default GistList
+export default GistList;

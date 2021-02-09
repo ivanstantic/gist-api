@@ -22,6 +22,7 @@ const App = () => {
   const fetchGistList = async () => {
     try {
       const { data: gistList } = await getPublicGists();
+      console.log(gistList);
       updateGistList(gistList);
     } catch(error) {
       console.log(error);
